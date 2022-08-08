@@ -24,6 +24,15 @@ export default function ToggleChat(props) {
       >
         Banned
       </Button>
+      <Button
+        id="flag"
+        onClick={() => {
+          props.setToggledVal("flagged");
+        }}
+        className={props.toggledVal === "flagged" ? classes.activeToggled : classes.disableToggled}
+      >
+        Flagged
+      </Button>
     </>
   );
 }

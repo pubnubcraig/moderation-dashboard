@@ -2,7 +2,7 @@
  * Displays paginated table containg channel metadata
  */
 import React, { useState, useEffect } from "react";
-import { getChannels, getChannelsOccupancy } from "../../services/pubnub";
+import { getChannels, getChannelsOccupancy, getMessagesCounts } from "../../services/pubnub";
 import ListingTable from "../tables/ListingTable";
 import { setLocalStorage } from "../../services/localStorage";
 import { CircularProgress, Grid } from "@material-ui/core";
@@ -10,6 +10,7 @@ import { formatDate } from "../../utils/helpers";
 import ConfirmDialog from "../core/ConfirmDialog";
 import UpdateChannelMetadataModal from "./UpdateChannelMetadataModal";
 import { useHistory } from "react-router";
+import { lastMidnightHours } from "../../utils/helpers";
 
 export default function ChannelsTable({
   searchResult,
@@ -39,6 +40,9 @@ export default function ChannelsTable({
     { id: "id", alignment: "left", label: "CHANNEL", avatar: true },
     { id: "description", alignment: "left", label: "DESCRIPTION" },
     { id: "occupancy", alignment: "left", label: "OCCUPANCY" },
+    { id: "chats", alignment: "left", label: "CHATS" },
+    { id: "banned", alignment: "left", label: "BANNED" },
+    { id: "flagged", alignment: "left", label: "FLAGGED" },
     { id: "icons", alignment: "left", icons: true, user: false },
   ];
 
@@ -78,6 +82,7 @@ export default function ChannelsTable({
         const channelsList = [];
         const channelsIDs = [];
         let selectedChannel = {};
+
         applicationChannels.data.map((channel, index) => {
           selectedChannel = channel;
           selectedChannel.updated = formatDate(channel.updated);
@@ -85,11 +90,39 @@ export default function ChannelsTable({
           channelsIDs.push(selectedChannel.id);
           return false;
         });
+
         const channelsOccupancy = await getChannelsOccupancy(pubnub, channelsIDs);
         channelsIDs.forEach((id, channelIndex) => {
           channelsList[channelIndex]["occupancy"] =
             channelsOccupancy[id] && channelsOccupancy[id].occupancy;
         });
+
+        const channelsChatCount = await getMessagesCounts(pubnub, channelsIDs, lastMidnightHours());
+
+        channelsIDs.forEach((id, channelIndex) => {
+          channelsList[channelIndex]["chats"] = channelsChatCount[id];
+        });
+
+        const channelsBannedCount = await getMessagesCounts(
+          pubnub,
+          prefixChannels(channelsIDs, "banned."),
+          lastMidnightHours()
+        );
+
+        channelsIDs.forEach((id, channelIndex) => {
+          channelsList[channelIndex]["banned"] = channelsBannedCount[`banned.${id}`];
+        });
+
+        const channelsFlaggedCount = await getMessagesCounts(
+          pubnub,
+          prefixChannels(channelsIDs, "flagged."),
+          lastMidnightHours()
+        );
+
+        channelsIDs.forEach((id, channelIndex) => {
+          channelsList[channelIndex]["flagged"] = channelsFlaggedCount[`flagged.${id}`];
+        });
+
         setChannels(channelsList);
         setLocalStorage("PubNubChannels", channelsList);
         setLoading(false);
@@ -99,6 +132,17 @@ export default function ChannelsTable({
         setLocalStorage("PubNubChannels", []);
       }
     })();
+  };
+
+  /**
+   * Add a prefix (banned./flagged.) to a list of channel ids
+   */
+  const prefixChannels = (channelIds, prefix) => {
+    let prefixedChannelIds = [];
+    channelIds.forEach((id) => {
+      prefixedChannelIds.push(`${prefix}${id}`);
+    });
+    return prefixedChannelIds;
   };
 
   /**

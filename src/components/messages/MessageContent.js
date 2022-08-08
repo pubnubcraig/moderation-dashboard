@@ -133,6 +133,59 @@ const MessageContent = (props) => {
           </>
         </Grid>
       )}
+      {toggledVal === "flagged" && (
+        <Grid container>
+          <>
+            <span
+              className={classes.chat}
+              style={{
+                backgroundColor: index % 2 !== 0 ? "#FFFFFF" : "#EEF3FF",
+              }}
+            >
+              <Typography className={classes.chatText}>
+                <LightTooltip
+                  title={
+                    <>
+                      <Typography>{getModeratedReasonTooltip(message.reason)}</Typography>
+                      <br />
+                      <Typography>
+                        {getModeratedMessageTooltip(message.moderatedMessage)}
+                      </Typography>
+                    </>
+                  }
+                >
+                  <Typography className={classes.chatText}>{message.originalMessage}</Typography>
+                </LightTooltip>
+              </Typography>
+              {message.image && (
+                <>
+                  <IconButton className={classes.imageContainer}>
+                    <img className={classes.image} src={message.image} alt="sentImage" />
+                    {message.imageReason && (
+                      <LightTooltip
+                        title={
+                          <>
+                            <Typography>{`Reason: ${
+                              message.imageReason[0] && message.imageReason[0].text
+                            }`}</Typography>
+                          </>
+                        }
+                        placement="right-start"
+                      >
+                        <img
+                          src={process.env.PUBLIC_URL + "/images/info.svg"}
+                          alt="profilePicture"
+                          className={classes.imageIcon}
+                        />
+                      </LightTooltip>
+                    )}
+                  </IconButton>
+                </>
+              )}
+            </span>
+          </>
+        </Grid>
+      )}
     </>
   );
 };

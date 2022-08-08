@@ -109,6 +109,20 @@ export default function Chat(props) {
                     <Typography className={classes.timeField}>{message.time}</Typography>
                   </>
                 )}
+                {props.toggledVal === "flagged" && (
+                  <>
+                    <Grid container>
+                      <Box>
+                        <Avatar variant="square" src={formatProfileImageUrl(message.profileUrl)} />
+                      </Box>
+                      <Typography className={classes.user}>
+                        {formatUserName(message.name)}
+                      </Typography>
+                    </Grid>
+                    <MessageContent message={message} toggledVal={props.toggledVal} index={n} />
+                    <Typography className={classes.timeField}>{message.time}</Typography>
+                  </>
+                )}
               </div>
             );
           })}

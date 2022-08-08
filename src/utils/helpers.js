@@ -341,6 +341,7 @@ export const getMessageFileUrl = (messageObject, channelMessage, pubnub, channel
 };
 
 export const formatBannedMessage = (messageObject) => {
+  debugger;
   if (messageObject.file && messageObject.file.url) messageObject.image = messageObject.file.url;
 
   if (messageObject.file && messageObject.file.reason)

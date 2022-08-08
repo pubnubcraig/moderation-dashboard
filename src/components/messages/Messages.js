@@ -60,8 +60,9 @@ const Messages = () => {
       setChannelID(location.state.channel);
     } else if (toggledVal === "banned") {
       setChannelID("banned." + location.state.channel);
+    } else if (toggledVal === "flagged") {
+      setChannelID("flagged." + location.state.channel);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toggledVal]);
 
@@ -107,23 +108,29 @@ const Messages = () => {
         const messagesList = [];
         let messageObject = {};
         let messagesSet = [];
+
         if (channelMessages) {
           channelMessages.map((channelMessage, j) => {
             messageObject = channelMessage.message;
             messageObject.time = formatTimeToken(channelMessage.timetoken);
             messageObject.timetoken = channelMessage.timetoken;
             messageObject.actions = channelMessage.actions;
+
             messageObject.actionToken =
               channelMessage.actions &&
               channelMessage.actions.deleted &&
               channelMessage.actions.deleted["."][0].actionTimetoken;
+
             messageObject.text = getMessageText(channelMessage, messageObject);
+
             // Get the original senders uuid from the user's publish or
             // if message was sent to banned channel by a function, find it in the message payload
             let senderUuid = channelMessage.uuid || channelMessage.message.senderUuid;
+
             // Use the sender's uuid to add the name/avatar info to the message
             let filterMember =
               senderUuid && members && members.filter((member) => member.uuid.id === senderUuid);
+
             if (filterMember && filterMember.length) {
               messageObject.name = capitalizeFirstLetter(
                 filterMember[0].uuid.name || filterMember[0].uuid.id
@@ -133,6 +140,9 @@ const Messages = () => {
               // Display uuid even if there is no name metadata
               messageObject.name = senderUuid;
             }
+
+            // cc - why doesn't this call have messageObject on the left hand side?
+            //      e.g. - messageObject = formatBannedMessage(messageObject);
             formatBannedMessage(messageObject);
             messagesSet = getMessageFileUrl(messageObject, channelMessage, pubnub, channelID);
             messagesList.push(messagesSet);
@@ -255,6 +265,11 @@ const Messages = () => {
                   {toggledVal === "banned" && (
                     <small className={classes.values}>
                       {location.state.channel} - Banned ({channel.name})
+                    </small>
+                  )}
+                  {toggledVal === "flagged" && (
+                    <small className={classes.values}>
+                      {location.state.channel} - Flagged ({channel.name})
                     </small>
                   )}
                   <br />

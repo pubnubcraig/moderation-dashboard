@@ -380,12 +380,25 @@ export async function fetchChannelMetadata(pubnub, channelName) {
 
 //To fetch Total messages count of today
 export async function getMessagesCount(pubnub, channelName, midnightTimeToken) {
+  debugger;
   const response = await pubnub.messageCounts({
     channels: [channelName],
     channelTimetokens: [midnightTimeToken],
   });
   if (response) {
+    debugger;
     return response.channels && response.channels[channelName];
+  }
+  throw new Error("Failed to get total messages Count");
+}
+
+export async function getMessagesCounts(pubnub, channels, sinceTimeToken) {
+  const response = await pubnub.messageCounts({
+    channels: [channels],
+    channelTimetokens: [sinceTimeToken],
+  });
+  if (response) {
+    return response.channels || [];
   }
   throw new Error("Failed to get total messages Count");
 }
