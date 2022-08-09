@@ -19,20 +19,16 @@ import { constantBoolean } from "../../../../utils/helpers";
 import { LightTooltip } from "../../../../style/tooltip";
 import { handleChange } from "./AutomaticHandler";
 import { handleTisaneChange } from "./TisaneHandler";
+import SiftNinjaServiceProperties from "./siftNinjaService/ServiceProperties";
 
 const AutomaticProfanityMethod = ({ state, setState, handleSave }) => {
   const {
     toolForAutomaticDetection,
-    siftNinjaRiskFactorThresholdVulgar,
-    siftNinjaRiskFactorThresholdSexting,
-    siftNinjaRiskFactorThresholdRacism,
-    siftNinjaAccountName,
-    siftNinjaChannelName,
-    siftNinjaApiKey,
     automaticMaskCharError,
     automaticChannelError,
     automaticDetectionChannel,
     automaticDetectionReRouteMessages,
+    automaticDetectionReRouteFlaggedMessages,
     automaticDetectionModType,
     applyToAllChannelIdsAutomatic,
     automaticDetectionCharacterToMaskWith,
@@ -47,6 +43,7 @@ const AutomaticProfanityMethod = ({ state, setState, handleSave }) => {
 
   const classes = useStyles();
   const checkboxForReroute = constantBoolean(automaticDetectionReRouteMessages);
+  const checkboxForRerouteFlagged = constantBoolean(automaticDetectionReRouteFlaggedMessages);
   const checkForApplyToAllChannelIds = constantBoolean(applyToAllChannelIdsAutomatic);
 
   const TooltipText = (
@@ -157,168 +154,17 @@ const AutomaticProfanityMethod = ({ state, setState, handleSave }) => {
           </Grid>
         </Grid>
         <br />
+
+        {/* beginning of subpage */}
+
+        {/* SiftNinja Service Properties Page */}
         {toolForAutomaticDetection === "siftninja" && (
           <>
-            <Box pt={1}>
-              <Grid container>
-                <Grid item>
-                  <label testid="accountName" className={classes.label}>
-                    SiftNinja Account Name
-                  </label>
-                </Grid>
-                <Grid item>
-                  <Box className={classes.infoIcon}>
-                    <LightTooltip title="This option is only available for users who have an existing SiftNinja account">
-                      <img
-                        src={process.env.PUBLIC_URL + "/images/info-circle.svg"}
-                        alt="info-circle"
-                      />
-                    </LightTooltip>
-                  </Box>
-                </Grid>
-              </Grid>
-              <Box pt={1} mb={2}>
-                <TextField
-                  id="siftAccountName"
-                  variant="outlined"
-                  size="small"
-                  placeholder="SiftNinja Account Name"
-                  fullWidth
-                  name="siftNinjaAccountName"
-                  value={siftNinjaAccountName}
-                  onChange={handleChange({ setState, state })}
-                />
-              </Box>
-            </Box>
-            <br />
-            <Box pt={1}>
-              <Grid container>
-                <Grid item>
-                  <label testId="siftChannelName" className={classes.label}>
-                    SiftNinja Channel Name
-                  </label>
-                </Grid>
-                <Grid item>
-                  <Box className={classes.infoIcon}>
-                    <LightTooltip title="This option is only available for users who have an existing SiftNinja account">
-                      <img
-                        src={process.env.PUBLIC_URL + "/images/info-circle.svg"}
-                        alt="info-circle"
-                      />
-                    </LightTooltip>
-                  </Box>
-                </Grid>
-              </Grid>
-              <Box pt={1} mb={2}>
-                <TextField
-                  id="siftChannelName"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  name="siftNinjaChannelName"
-                  placeholder="SiftNinja Channel Name"
-                  value={siftNinjaChannelName}
-                  onChange={handleChange({ setState, state })}
-                />
-              </Box>
-            </Box>
-            <br />
-            <Box pt={1}>
-              <Grid container>
-                <Grid item>
-                  <label testid="siftApiKey" className={classes.label}>
-                    SiftNinja API Key
-                  </label>
-                </Grid>
-                <Grid item>
-                  <Box className={classes.infoIcon}>
-                    <LightTooltip title="This option is only available for users who have an existing SiftNinja account">
-                      <img
-                        src={process.env.PUBLIC_URL + "/images/info-circle.svg"}
-                        alt="info-circle"
-                      />
-                    </LightTooltip>
-                  </Box>
-                </Grid>
-              </Grid>
-              <Box pt={1} mb={2}>
-                <TextField
-                  id="siftApiKey"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  name="siftNinjaApiKey"
-                  placeholder="SiftNinja API key"
-                  value={siftNinjaApiKey}
-                  onChange={handleChange({ setState, state })}
-                />
-                <Typography testid="connectivity" align="right" className={classes.testText}>
-                  Test Conectivity
-                </Typography>
-              </Box>
-            </Box>
-            <br />
-            <Grid container justify="space-between" spacing={6}>
-              <Grid item sm={6} xs={12} md={6} lg={6}>
-                <Box>
-                  <label testid="vulgarRiskFactor" className={classes.label}>
-                    SiftNinja Risk Factor Threshold For Vulgarity
-                  </label>
-                  <Box pt={1}>
-                    <Slider
-                      id="vulgarRiskFactor"
-                      name={toolForAutomaticDetection}
-                      value={siftNinjaRiskFactorThresholdVulgar}
-                      onChange={handleChange({
-                        setState,
-                        state,
-                        name: "riskFactorThresholdForVulgar",
-                      })}
-                    />
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item sm={6} xs={6} md={6} lg={6}>
-                <Box>
-                  <label testId="SextingRisk" className={classes.label}>
-                    SiftNinja Risk Factor Threshold For Sexting
-                  </label>
-                  <Box pt={1}>
-                    <Slider
-                      id="SextingRisk"
-                      name={toolForAutomaticDetection}
-                      value={siftNinjaRiskFactorThresholdSexting}
-                      onChange={handleChange({
-                        setState,
-                        state,
-                        name: "riskFactorThresholdForSexting",
-                      })}
-                    />
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item sm={6} xs={6} md={6} lg={6}>
-                <Box>
-                  <label testid="racismRisk" className={classes.label}>
-                    SiftNinja Risk Factor Threshold For Racism
-                  </label>
-                  <Box pt={1}>
-                    <Slider
-                      id="racismRisk"
-                      name={toolForAutomaticDetection}
-                      value={siftNinjaRiskFactorThresholdRacism}
-                      onChange={handleChange({
-                        setState,
-                        state,
-                        name: "riskFactorThresholdForRacism",
-                      })}
-                    />
-                  </Box>
-                </Box>
-              </Grid>
-            </Grid>
+            <SiftNinjaServiceProperties state={state} />
           </>
         )}
+
+        {/* SiftNinja Service Properties Page */}
         {toolForAutomaticDetection === "tisane" && (
           <>
             <Box pt={1}>
@@ -493,6 +339,8 @@ const AutomaticProfanityMethod = ({ state, setState, handleSave }) => {
           </>
         )}
 
+        {/* end of subpage */}
+
         <Grid container justify="flex-start" spacing={6}>
           <Grid item sm={6} md={6}>
             <label testid="blockOrMask" className={classes.label}>
@@ -566,7 +414,7 @@ const AutomaticProfanityMethod = ({ state, setState, handleSave }) => {
             <Grid container justify="flex-start">
               <Grid item>
                 <Checkbox
-                  id="reRoute"
+                  id="reRouteBanned"
                   name="automaticDetectionReRouteMessages"
                   onChange={handleChange({ setState, state })}
                   checked={checkboxForReroute}
@@ -575,7 +423,7 @@ const AutomaticProfanityMethod = ({ state, setState, handleSave }) => {
               <Grid item>
                 <Box pt={1} pl={1}>
                   <Typography testid="reRouteMsg" variant="body1">
-                    Route messages to
+                    Route banned messages to
                   </Typography>
                 </Box>
               </Grid>
@@ -584,6 +432,32 @@ const AutomaticProfanityMethod = ({ state, setState, handleSave }) => {
           <Grid item>
             <Box>
               <Chip className={classes.reroute} label={"banned." + automaticDetectionChannel} />
+            </Box>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item>
+            <Grid container justify="flex-start">
+              <Grid item>
+                <Checkbox
+                  id="reRouteFlagged"
+                  name="automaticDetectionReRouteFlaggedMessages"
+                  onChange={handleChange({ setState, state })}
+                  checked={checkboxForRerouteFlagged}
+                />
+              </Grid>
+              <Grid item>
+                <Box pt={1} pl={1}>
+                  <Typography testid="reRouteMsg" variant="body1">
+                    Route flagged messages to
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Box>
+              <Chip className={classes.reroute} label={"flagged." + automaticDetectionChannel} />
             </Box>
           </Grid>
         </Grid>
