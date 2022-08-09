@@ -3,7 +3,7 @@ import { Grid, Box, Card, Typography, TextField } from "@material-ui/core";
 import { useStyles } from "../../../../../style/automaticProfanityMethod";
 import Slider from "../../../../core/SliderComponent";
 import { LightTooltip } from "../../../../../style/tooltip";
-import { handleChange } from "./AutomaticHandler";
+import { handleChange } from "./ServiceHandler";
 
 const ServiceProperties = ({ state, setState }) => {
   const {

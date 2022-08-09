@@ -1,4 +1,4 @@
-export const handleTisaneChange =
+export const handleChange =
   ({ setState, state, name }) =>
   (e, value) => {
     if (e.target.name === "tisaneApiKey") {
