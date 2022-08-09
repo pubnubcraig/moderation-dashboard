@@ -13,10 +13,10 @@ import {
   FormControl,
   MenuItem,
 } from "@material-ui/core";
-import { getProfanityWordsByLanguage, constantBoolean } from "../../../utils/helpers";
-import { useStyles } from "../../../style/textModeration.js";
+import { getProfanityWordsByLanguage, constantBoolean } from "../../../../utils/helpers";
+import { useStyles } from "../../../../style/textModeration.js";
 import { handleChange } from "./WordListHandler";
-import { LightTooltip } from "../../../style/tooltip";
+import { LightTooltip } from "../../../../style/tooltip";
 
 const WordListProfanityMethod = ({
   handleSave,

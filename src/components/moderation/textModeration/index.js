@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Grid, CircularProgress, Typography } from "@material-ui/core";
-import { useStyles } from "../../style/textModeration.js";
-import SnackBar from "../core/SnackBar";
+import { useStyles } from "../../../style/textModeration.js";
+import SnackBar from "../../core/SnackBar";
 import ModerationMethods from "./ModerationMethods";
-import SwitchButton from "../core/SwitchButton";
+import SwitchButton from "../../core/SwitchButton";
 import FilterCard from "./FilterCard";
-import profanityFunction from "../../utils/profanityFunction";
+import profanityFunction from "../../../utils/profanityFunction";
 
-import { getCookie } from "../../services/localStorage";
+import { getCookie } from "../../../services/localStorage";
 import {
   fetchWords,
   constantBoolean,
@@ -16,7 +16,7 @@ import {
   filterEventHandler,
   getProfanityWordsByLanguage,
   pnFunctionFilterStatus,
-} from "../../utils/helpers";
+} from "../../../utils/helpers";
 import {
   fetchPubNubFunction,
   createPubNubFunction,
@@ -24,9 +24,9 @@ import {
   stopPubNubFunction,
   createPubNubEventHandler,
   updatePubNubEventHandler,
-} from "../../services/pubnub";
+} from "../../../services/pubnub";
 
-import { handleImageModerationSave } from "../../utils/imageModeration";
+import { handleImageModerationSave } from "../../../utils/imageModeration";
 
 const TextModeration = () => {
   const classes = useStyles();

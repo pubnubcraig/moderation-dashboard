@@ -110,20 +110,6 @@ function Sidebar({ content }) {
             <Typography variant="body2">Channels</Typography>
           </ListItemText>
         </ListItem>
-
-        <ListItem
-          id="flaggedItem"
-          button
-          onClick={() => history.push("/flagged")}
-          selected={history.location.pathname === "/flagged"}
-        >
-          <ListItemIcon className={classes.listItemRoot}>
-            <MailOutline className={classes.channelIcon} />
-          </ListItemIcon>
-          <ListItemText>
-            <Typography variant="body2">Flagged Messages</Typography>
-          </ListItemText>
-        </ListItem>
       </List>
     </div>
   );

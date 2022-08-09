@@ -13,10 +13,10 @@ import {
   FormControl,
   MenuItem,
 } from "@material-ui/core";
-import { useStyles } from "../../../style/automaticProfanityMethod";
-import Slider from "../../core/SliderComponent";
-import { constantBoolean } from "../../../utils/helpers";
-import { LightTooltip } from "../../../style/tooltip";
+import { useStyles } from "../../../../style/automaticProfanityMethod";
+import Slider from "../../../core/SliderComponent";
+import { constantBoolean } from "../../../../utils/helpers";
+import { LightTooltip } from "../../../../style/tooltip";
 import { handleChange } from "./AutomaticHandler";
 import { handleTisaneChange } from "./TisaneHandler";
 

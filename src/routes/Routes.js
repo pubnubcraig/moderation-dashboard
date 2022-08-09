@@ -7,7 +7,6 @@ import Dashboard from "../pages/dashboard";
 import TextModeration from "../pages/textModeration";
 import Accounts from "../pages/accounts";
 import Channels from "../pages/channels";
-import Flagged from "../pages/flagged";
 import Overview from "../pages/overview";
 import Users from "../pages/users";
 import Messages from "../pages/messages";
@@ -21,7 +20,6 @@ const Routes = () => (
       <Private path="/dashboard" exact component={Dashboard} />
       <Private path="/text-moderation" exact component={TextModeration} />
       <Private path="/channels" exact component={Channels} />
-      <Private path="/flagged" exact component={Flagged} />
       <Private path="/overview" exact component={Overview} />
       <Private path="/users" exact component={Users} />
       <Private path="/channels/messages" exact component={Messages} />
