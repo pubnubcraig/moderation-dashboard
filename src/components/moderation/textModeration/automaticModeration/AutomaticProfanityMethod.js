@@ -145,8 +145,6 @@ const AutomaticProfanityMethod = ({ state, setState, handleSave }) => {
           </>
         )}
 
-        {/* end of subpage */}
-
         <Grid container justify="flex-start" spacing={6}>
           <Grid item sm={6} md={6}>
             <label testid="blockOrMask" className={classes.label}>
