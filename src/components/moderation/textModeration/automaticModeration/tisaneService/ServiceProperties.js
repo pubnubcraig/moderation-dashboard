@@ -120,18 +120,18 @@ const ServiceProperties = ({ state, setState }) => {
           <Grid container justify="space-between" spacing={6}>
             <Grid item sm={6} xs={12} md={6} lg={6}>
               <Box pl={1}>
-                <label testid="BigotryLevel" className={classes.label}>
+                <label testid="tisaneRiskFactorThresholdForBigotry" className={classes.label}>
                   Filter Level For Bigotry (Hate Speech)
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="BigotryLevel"
+                    id="tisaneRiskFactorThresholdForBigotry"
                     value={tisaneRiskFactorThresholdBigotry}
-                    name="riskFactorThresholdForBigotry"
+                    name="tisaneRiskFactorThresholdForBigotry"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "riskFactorThresholdForBigotry",
+                      name: "tisaneRiskFactorThresholdForBigotry",
                     })}
                   />
                 </Box>
@@ -139,18 +139,18 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Grid item sm={6} xs={6} md={6} lg={6}>
               <Box pl={1}>
-                <label testid="CyberBullying" className={classes.label}>
+                <label testid="tisaneRiskFactorThresholdForCyberBullying" className={classes.label}>
                   Filter Level For Personal Attacks (Cyberbullying)
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="CyberBullying"
+                    id="tisaneRiskFactorThresholdForCyberBullying"
                     value={tisaneRiskFactorThresholdCyberBullying}
-                    name="riskFactorThresholdForCyberBullying"
+                    name="tisaneRiskFactorThresholdForCyberBullying"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "riskFactorThresholdForCyberBullying",
+                      name: "tisaneRiskFactorThresholdForCyberBullying",
                     })}
                   />
                 </Box>
@@ -158,18 +158,21 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Grid item sm={6} xs={12} md={6} lg={6}>
               <Box pl={1}>
-                <label testid="criminalLevel" className={classes.label}>
+                <label
+                  testid="tisaneRiskFactorThresholdForCriminalActivity"
+                  className={classes.label}
+                >
                   Filter Level For Criminal Activity
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="criminalLevel"
+                    id="tisaneRiskFactorThresholdForCriminalActivity"
                     value={tisaneRiskFactorThresholdCriminalActivity}
-                    name="riskFactorThresholdForCriminalActivity"
+                    name="tisaneRiskFactorThresholdForCriminalActivity"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "riskFactorThresholdForCriminalActivity",
+                      name: "tisaneRiskFactorThresholdForCriminalActivity",
                     })}
                   />
                 </Box>
@@ -177,18 +180,21 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Grid item sm={6} xs={6} md={6} lg={6}>
               <Box pl={1}>
-                <label testid="sexualLevel" className={classes.label}>
+                <label
+                  testid="tisaneRiskFactorThresholdForSexualAdvances"
+                  className={classes.label}
+                >
                   Filter Level For Sexual Advances
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="sexualLevel"
+                    id="tisaneRiskFactorThresholdForSexualAdvances"
                     value={tisaneRiskFactorThresholdSexualAdvances}
-                    name="riskFactorThresholdForSexualAdvances"
+                    name="tisaneRiskFactorThresholdForSexualAdvances"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "riskFactorThresholdForSexualAdvances",
+                      name: "tisaneRiskFactorThresholdForSexualAdvances",
                     })}
                   />
                 </Box>
@@ -196,18 +202,18 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Grid item sm={6} xs={12} md={6} lg={6}>
               <Box pl={1}>
-                <label testid="ProfanityLevel" className={classes.label}>
+                <label testid="tisaneRiskFactorThresholdForProfanity" className={classes.label}>
                   Filter Level For Profanity
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="ProfanityLevel"
+                    id="tisaneRiskFactorThresholdForProfanity"
                     value={tisaneRiskFactorThresholdProfanity}
-                    name="riskFactorThresholdForProfanity"
+                    name="tisaneRiskFactorThresholdForProfanity"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "riskFactorThresholdForProfanity",
+                      name: "tisaneRiskFactorThresholdForProfanity",
                     })}
                   />
                 </Box>

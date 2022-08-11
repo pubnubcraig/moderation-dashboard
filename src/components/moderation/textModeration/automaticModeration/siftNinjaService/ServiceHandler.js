@@ -1,7 +1,15 @@
 export const handleChange =
   ({ setState, state, name }) =>
   (e, value) => {
-    if (name === "riskFactorThresholdForVulgar") {
+    if (e.target.name === "siftNinjaApiKey") {
+      setState({
+        ...state,
+        automaticDetection: {
+          ...state.automaticDetection,
+          siftNinjaApiKey: e.target.value,
+        },
+      });
+    } else if (name === "riskFactorThresholdForVulgar") {
       setState({
         ...state,
         automaticDetection: {
@@ -41,40 +49,5 @@ export const handleChange =
           siftNinjaChannelName: e.target.value,
         },
       });
-    } else if (e.target.name === "siftNinjaApiKey") {
-      setState({
-        ...state,
-        automaticDetection: {
-          ...state.automaticDetection,
-          siftNinjaApiKey: e.target.value,
-        },
-      });
-    } else if (e.target.name === "automaticDetectionCharacterToMaskWith") {
-      setState({
-        ...state,
-        automaticDetection: {
-          ...state.automaticDetection,
-          automaticDetectionCharacterToMaskWith: e.target.value,
-        },
-      });
-    } else if (name === "applyToAllChannelIdsAutomatic") {
-      if (e.target.checked) {
-        setState({
-          ...state,
-          automaticDetection: {
-            ...state.automaticDetection,
-            automaticDetectionChannel: "*",
-            applyToAllChannelIdsAutomatic: e.target.checked,
-          },
-        });
-      } else {
-        setState({
-          ...state,
-          automaticDetection: {
-            ...state.automaticDetection,
-            applyToAllChannelIdsAutomatic: e.target.checked,
-          },
-        });
-      }
     }
   };

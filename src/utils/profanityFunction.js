@@ -60,6 +60,8 @@ export default function profanityFunction(data) {
     }
   };
 
+  // TODO: only include what is needed per Service
+  // and refactor the content to the appropriate service folders
   return `function runProfanity(request){
      ${filterConditions()}
      return {
