@@ -17,7 +17,7 @@ import {
   mockImageModerationReoute,
 } from "../../mockTest/mockImageProfanity";
 
-import profanityFunctionForImage from "../../../utils/profanityFunctionForImage";
+import profanityFunctionForImage from "../../../utils/imageModeration/profanityFunctionForImage";
 
 describe("check for image and text modertaion Function", () => {
   test("check image toggle off and text moderation toggle Off", () => {

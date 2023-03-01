@@ -1,10 +1,10 @@
-import profanityFunctionForImage from "../../utils/profanityFunctionForImage";
+import profanityFunctionForImage from "../../../utils/profanityFunctionForImage";
 
 import {
   startPubNubFunction,
   stopPubNubFunction,
   updatePubNubEventHandler,
-} from "../../services/pubnub";
+} from "../../../services/pubnub";
 
 /* ------
   This function is for updating the event hanlder

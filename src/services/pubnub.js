@@ -155,7 +155,7 @@ export async function editChannelMetadata(pubnub, channelName, channelDescriptio
   throw new Error("Failed to add channel metadata");
 }
 
-//To fetch Messages
+// To fetch Messages
 export async function fetchMessages(pubnub, channelName) {
   const msgResponse = await pubnub.fetchMessages({
     channels: [channelName],
@@ -380,13 +380,11 @@ export async function fetchChannelMetadata(pubnub, channelName) {
 
 //To fetch Total messages count of today
 export async function getMessagesCount(pubnub, channelName, midnightTimeToken) {
-  debugger;
   const response = await pubnub.messageCounts({
     channels: [channelName],
     channelTimetokens: [midnightTimeToken],
   });
   if (response) {
-    debugger;
     return response.channels && response.channels[channelName];
   }
   throw new Error("Failed to get total messages Count");

@@ -1,6 +1,6 @@
-import profanityFunctionForImage from "../../utils/profanityFunctionForImage";
+import profanityFunctionForImage from "../../../utils/profanityFunctionForImage";
 
-import { startPubNubFunction, createPubNubEventHandler } from "../../services/pubnub";
+import { startPubNubFunction, createPubNubEventHandler } from "../../../services/pubnub";
 async function CreateEventHandler({ blockId, keyId, token, state, setState, textPnFnStatusdata }) {
   const {
     imageModerationToggle,

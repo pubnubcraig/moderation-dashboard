@@ -1,5 +1,5 @@
 import UpdateEventHandler from "../../../components/imageModeration/UpdateEventHandler";
-import profanityFunctionForImage from "../../../utils/profanityFunctionForImage";
+import profanityFunctionForImage from "../../../utils/imageModeration/profanityFunctionForImage";
 import {
   startPubNubFunction,
   stopPubNubFunction,

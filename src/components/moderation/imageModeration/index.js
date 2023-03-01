@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Grid, CircularProgress } from "@material-ui/core";
-import { useStyles } from "../../style/imageModeration.js";
-import SwitchButton from "../core/SwitchButton";
-import SnackBar from "../core/SnackBar";
+import { useStyles } from "../../../style/imageModeration.js";
+import SwitchButton from "../../core/SwitchButton";
+import SnackBar from "../../core/SnackBar";
 import FilterCard from "./FilterCard";
 import AutomaticImageModeration from "./automaticModeration/AutomaticImageModeration";
-import { getCookie } from "../../services/localStorage";
-import { selectedAppFromLS, constantBoolean, pnFunctionFilterStatus } from "../../utils/helpers";
+import { getCookie } from "../../../services/localStorage";
+import { selectedAppFromLS, constantBoolean, pnFunctionFilterStatus } from "../../../utils/helpers";
 
 import {
   imageModerationCode,
   handleImageModerationSave,
   textModerationCode,
-} from "../../utils/imageModeration";
+} from "../../../utils/imageModeration";
 
-import { fetchPubNubFunction } from "../../services/pubnub";
+import { fetchPubNubFunction } from "../../../services/pubnub";
 const ImageModeration = () => {
   const classes = useStyles();
   const [state, setState] = useState({

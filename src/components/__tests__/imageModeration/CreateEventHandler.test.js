@@ -1,5 +1,5 @@
 import CreateEventHandler from "../../../components/imageModeration/CreateEventHandler";
-import profanityFunctionForImage from "../../../utils/profanityFunctionForImage";
+import profanityFunctionForImage from "../../../utils/imageModeration/profanityFunctionForImage";
 import { startPubNubFunction, createPubNubEventHandler } from "../../../services/pubnub";
 
 import { mockMaskAutomationOn } from "../../mockTest/mockTextProfanity";

@@ -5,7 +5,7 @@ export const getSelectedDetectionTool = (data) => {
   if (data.toolForAutomaticDetection === "tisane") {
     data.selectedLanguage = getSelectedLanguage(data.tisaneLanguage);
     return getTisaneServiceFunctionCode(data);
-  } else if (data.toolForAutomaticDetection === "siftNinja") {
+  } else if (data.toolForAutomaticDetection === "siftninja") {
     return getSiftNinjaServiceFunctionCode(data);
   }
 };
@@ -18,5 +18,6 @@ const getSelectedLanguage = (language) => {
     Portugese: "pt",
     French: "fr",
   };
+
   return languages[language];
 };

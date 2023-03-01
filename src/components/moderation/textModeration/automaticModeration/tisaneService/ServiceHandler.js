@@ -1,7 +1,7 @@
 export const handleChange =
   ({ setState, state, name }) =>
   (e, value) => {
-    if (e.target.name === "tisaneApiKey") {
+    if (e.target.name === "apiKey") {
       setState({
         ...state,
         automaticDetection: {
@@ -9,7 +9,7 @@ export const handleChange =
           tisaneApiKey: e.target.value,
         },
       });
-    } else if (e.target.name === "tisaneLanguage") {
+    } else if (e.target.name === "language") {
       setState({
         ...state,
         automaticDetection: {

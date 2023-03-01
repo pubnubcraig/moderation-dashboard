@@ -6,8 +6,9 @@ import {
   filterEventHandler,
   constantBoolean,
 } from "../helpers";
-import CreateEventHandler from "../../components/imageModeration/CreateEventHandler";
-import UpdateEventHandler from "../../components/imageModeration/UpdateEventHandler";
+
+import CreateEventHandler from "../../components/moderation/imageModeration/CreateEventHandler";
+import UpdateEventHandler from "../../components/moderation/imageModeration/UpdateEventHandler";
 import { fetchPubNubFunction, createPubNubFunction } from "../../services/pubnub";
 
 export const textModerationCode = (selectedApp, fetchFunctionsResponse) => {

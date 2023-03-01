@@ -1,7 +1,7 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
 import TextModeration from "../../textModeration";
-import profanityFunctionForImage from "../../../utils/profanityFunctionForImage";
+import profanityFunctionForImage from "../../../utils/imageModeration/profanityFunctionForImage";
 import { handleImageModerationSave } from "../../../utils/imageModeration";
 import { act } from "react-dom/test-utils";
 

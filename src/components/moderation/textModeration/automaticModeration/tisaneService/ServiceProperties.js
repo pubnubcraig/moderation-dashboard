@@ -8,13 +8,13 @@ import { handleChange } from "./ServiceHandler";
 
 const ServiceProperties = ({ state, setState }) => {
   const {
-    tisaneRiskFactorThresholdBigotry,
-    tisaneRiskFactorThresholdCyberBullying,
-    tisaneRiskFactorThresholdCriminalActivity,
-    tisaneRiskFactorThresholdSexualAdvances,
-    tisaneRiskFactorThresholdProfanity,
-    tisaneApiKey,
-    tisaneLanguage,
+    riskFactorThresholdBigotry,
+    riskFactorThresholdCyberBullying,
+    riskFactorThresholdCriminalActivity,
+    riskFactorThresholdSexualAdvances,
+    riskFactorThresholdProfanity,
+    apiKey,
+    language,
   } = state.automaticDetection;
 
   const classes = useStyles();
@@ -48,7 +48,7 @@ const ServiceProperties = ({ state, setState }) => {
           <Box pt={1}>
             <Grid container>
               <Grid item>
-                <label testid="tisaneApiKey" className={classes.label}>
+                <label testid="apiKey" className={classes.label}>
                   Tisane.ai API Key
                 </label>
               </Grid>
@@ -65,12 +65,12 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Box pt={1} mb={2}>
               <TextField
-                id="tisaneApiKey"
+                id="apiKey"
                 variant="outlined"
                 size="small"
                 fullWidth
-                name="tisaneApiKey"
-                value={tisaneApiKey}
+                name="apiKey"
+                value={apiKey}
                 placeholder="Tisane.ai API key"
                 onChange={handleChange({ setState, state })}
               />
@@ -99,8 +99,8 @@ const ServiceProperties = ({ state, setState }) => {
                       },
                       getContentAnchorEl: null,
                     }}
-                    value={tisaneLanguage}
-                    name="tisaneLanguage"
+                    value={language}
+                    name="language"
                     inputProps={{ "aria-label": "Without label" }}
                     onChange={handleChange({ setState, state })}
                   >
@@ -120,18 +120,18 @@ const ServiceProperties = ({ state, setState }) => {
           <Grid container justify="space-between" spacing={6}>
             <Grid item sm={6} xs={12} md={6} lg={6}>
               <Box pl={1}>
-                <label testid="tisaneRiskFactorThresholdForBigotry" className={classes.label}>
+                <label testid="riskFactorThresholdForBigotry" className={classes.label}>
                   Filter Level For Bigotry (Hate Speech)
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="tisaneRiskFactorThresholdForBigotry"
-                    value={tisaneRiskFactorThresholdBigotry}
-                    name="tisaneRiskFactorThresholdForBigotry"
+                    id="riskFactorThresholdForBigotry"
+                    value={riskFactorThresholdBigotry}
+                    name="riskFactorThresholdForBigotry"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "tisaneRiskFactorThresholdForBigotry",
+                      name: "riskFactorThresholdForBigotry",
                     })}
                   />
                 </Box>
@@ -139,18 +139,18 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Grid item sm={6} xs={6} md={6} lg={6}>
               <Box pl={1}>
-                <label testid="tisaneRiskFactorThresholdForCyberBullying" className={classes.label}>
+                <label testid="riskFactorThresholdForCyberBullying" className={classes.label}>
                   Filter Level For Personal Attacks (Cyberbullying)
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="tisaneRiskFactorThresholdForCyberBullying"
-                    value={tisaneRiskFactorThresholdCyberBullying}
-                    name="tisaneRiskFactorThresholdForCyberBullying"
+                    id="riskFactorThresholdForCyberBullying"
+                    value={riskFactorThresholdCyberBullying}
+                    name="riskFactorThresholdForCyberBullying"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "tisaneRiskFactorThresholdForCyberBullying",
+                      name: "riskFactorThresholdForCyberBullying",
                     })}
                   />
                 </Box>
@@ -158,21 +158,18 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Grid item sm={6} xs={12} md={6} lg={6}>
               <Box pl={1}>
-                <label
-                  testid="tisaneRiskFactorThresholdForCriminalActivity"
-                  className={classes.label}
-                >
+                <label testid="riskFactorThresholdForCriminalActivity" className={classes.label}>
                   Filter Level For Criminal Activity
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="tisaneRiskFactorThresholdForCriminalActivity"
-                    value={tisaneRiskFactorThresholdCriminalActivity}
-                    name="tisaneRiskFactorThresholdForCriminalActivity"
+                    id="riskFactorThresholdForCriminalActivity"
+                    value={riskFactorThresholdCriminalActivity}
+                    name="riskFactorThresholdForCriminalActivity"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "tisaneRiskFactorThresholdForCriminalActivity",
+                      name: "riskFactorThresholdForCriminalActivity",
                     })}
                   />
                 </Box>
@@ -180,21 +177,18 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Grid item sm={6} xs={6} md={6} lg={6}>
               <Box pl={1}>
-                <label
-                  testid="tisaneRiskFactorThresholdForSexualAdvances"
-                  className={classes.label}
-                >
+                <label testid="riskFactorThresholdForSexualAdvances" className={classes.label}>
                   Filter Level For Sexual Advances
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="tisaneRiskFactorThresholdForSexualAdvances"
-                    value={tisaneRiskFactorThresholdSexualAdvances}
-                    name="tisaneRiskFactorThresholdForSexualAdvances"
+                    id="riskFactorThresholdForSexualAdvances"
+                    value={riskFactorThresholdSexualAdvances}
+                    name="riskFactorThresholdForSexualAdvances"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "tisaneRiskFactorThresholdForSexualAdvances",
+                      name: "riskFactorThresholdForSexualAdvances",
                     })}
                   />
                 </Box>
@@ -202,18 +196,18 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Grid item sm={6} xs={12} md={6} lg={6}>
               <Box pl={1}>
-                <label testid="tisaneRiskFactorThresholdForProfanity" className={classes.label}>
+                <label testid="riskFactorThresholdForProfanity" className={classes.label}>
                   Filter Level For Profanity
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="tisaneRiskFactorThresholdForProfanity"
-                    value={tisaneRiskFactorThresholdProfanity}
-                    name="tisaneRiskFactorThresholdForProfanity"
+                    id="riskFactorThresholdForProfanity"
+                    value={riskFactorThresholdProfanity}
+                    name="riskFactorThresholdForProfanity"
                     onChange={handleChange({
                       setState,
                       state,
-                      name: "tisaneRiskFactorThresholdForProfanity",
+                      name: "riskFactorThresholdForProfanity",
                     })}
                   />
                 </Box>

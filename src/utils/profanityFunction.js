@@ -1,7 +1,7 @@
 import { groupLanguageWords, constantBoolean } from "./helpers";
-
 import { FilterConditionForWordList } from "./wordlist/index";
 import { FilterConditionForAutomatic } from "./automaticTextModeration/filterConditionForAutomatic";
+// import { siftNinjaProps } from "../components/moderation/textModeration/automaticModeration/siftNinjaService/ServiceProperties";
 
 export default function profanityFunction(data) {
   const {
@@ -14,12 +14,15 @@ export default function profanityFunction(data) {
     automaticDetectionReRouteMessages,
     automaticDetectionCharacterToMaskWith,
     toolForAutomaticDetection,
-    siftNinjaRiskFactorThresholdVulgar,
-    siftNinjaRiskFactorThresholdSexting,
-    siftNinjaRiskFactorThresholdRacism,
-    siftNinjaAccountName,
-    siftNinjaChannelName,
-    siftNinjaApiKey,
+
+    siftNinjaProps,
+    // siftNinjaRiskFactorThresholdVulgar,
+    // siftNinjaRiskFactorThresholdSexting,
+    // siftNinjaRiskFactorThresholdRacism,
+    // siftNinjaAccountName,
+    // siftNinjaChannelName,
+    // siftNinjaApiKey,
+
     wordListProfanity,
     automaticProfanity,
     textModerationToggle,
@@ -39,9 +42,11 @@ export default function profanityFunction(data) {
   let portugese = data.profanityList["Portugese"];
 
   function noProfanityFilterSelected() {
-    return `if(request && request.ok){
-        return request.ok();
-    }`;
+    return `
+      if (request && request.ok) {
+          return request.ok();
+      }
+    `;
   }
 
   const checkForWordListProfanity =
@@ -60,45 +65,60 @@ export default function profanityFunction(data) {
     }
   };
 
-  // TODO: only include what is needed per Service
-  // and refactor the content to the appropriate service folders
-  return `function runProfanity(request){
-     ${filterConditions()}
-     return {
-       wordListProfanity: '${wordListProfanity}',
-       automaticProfanity: '${automaticProfanity}',
-       textModerationToggle: '${textModerationToggle}',
-       wordList:{
-         applyToAllChannelIdsWordlist:'${applyToAllChannelIdsWordlist}',
-         wordListReRouteMessages: '${wordListReRouteMessages}',
-         wordListModType: '${wordListModType}',
-         wordListCharacterToMaskWith:'${wordListCharacterToMaskWith}',
-         englishProfanity:'${groupLanguageWords(english)}',
-         hindiProfanity: '${groupLanguageWords(hindi)}',
-         frenchProfanity: '${groupLanguageWords(french)}',
-         spanishProfanity: '${groupLanguageWords(spanish)}',
-         portugeseProfanity: '${groupLanguageWords(portugese)}'
-       },
-       automaticDetection:{
-         applyToAllChannelIdsAutomatic: '${applyToAllChannelIdsAutomatic}',
-         automaticDetectionReRouteMessages: '${automaticDetectionReRouteMessages}',
-         automaticDetectionModType: '${automaticDetectionModType}',
-         automaticDetectionCharacterToMaskWith:'${automaticDetectionCharacterToMaskWith}',
-         toolForAutomaticDetection:'${toolForAutomaticDetection}',
-         siftNinjaRiskFactorThresholdVulgar:'${siftNinjaRiskFactorThresholdVulgar}',
-         siftNinjaRiskFactorThresholdSexting:'${siftNinjaRiskFactorThresholdSexting}',
-         siftNinjaRiskFactorThresholdRacism:'${siftNinjaRiskFactorThresholdRacism}',
-         siftNinjaAccountName:'${siftNinjaAccountName}',
-         siftNinjaChannelName:'${siftNinjaChannelName}',
-         siftNinjaApiKey:'${siftNinjaApiKey}',
-         tisaneRiskFactorThresholdBigotry:'${tisaneRiskFactorThresholdBigotry}',
-         tisaneRiskFactorThresholdCyberBullying:'${tisaneRiskFactorThresholdCyberBullying}',
-         tisaneRiskFactorThresholdCriminalActivity:'${tisaneRiskFactorThresholdCriminalActivity}',
-         tisaneRiskFactorThresholdSexualAdvances:'${tisaneRiskFactorThresholdSexualAdvances}',
-         tisaneRiskFactorThresholdProfanity:'${tisaneRiskFactorThresholdProfanity}',
-         tisaneApiKey:'${tisaneApiKey}',
-         tisaneLanguage:'${tisaneLanguage}'
-       },
-     };
-  }`;
+  debugger;
+  let code = `
+    function runProfanity(request){
+        ${filterConditions()}
+        return {
+          /**
+           * These objects are persisted values for the Moderation Dashboard UI.
+           * Deleting these settings will require you to reenter them when you 
+           * use the UI to make a change.
+           */
+          
+          wordListProfanity: '${wordListProfanity}',
+          automaticProfanity: '${automaticProfanity}',
+          textModerationToggle: '${textModerationToggle}',
+          
+          wordList:{
+            applyToAllChannelIdsWordlist:'${applyToAllChannelIdsWordlist}',
+            wordListReRouteMessages: '${wordListReRouteMessages}',
+            wordListModType: '${wordListModType}',
+            wordListCharacterToMaskWith:'${wordListCharacterToMaskWith}',
+            englishProfanity:'${groupLanguageWords(english)}',
+            hindiProfanity: '${groupLanguageWords(hindi)}',
+            frenchProfanity: '${groupLanguageWords(french)}',
+            spanishProfanity: '${groupLanguageWords(spanish)}',
+            portugeseProfanity: '${groupLanguageWords(portugese)}'
+          },
+
+          automaticDetection:{
+          applyToAllChannelIdsAutomatic: '${applyToAllChannelIdsAutomatic}',
+          automaticDetectionReRouteMessages: '${automaticDetectionReRouteMessages}',
+          automaticDetectionModType: '${automaticDetectionModType}',
+          automaticDetectionCharacterToMaskWith:'${automaticDetectionCharacterToMaskWith}',
+          toolForAutomaticDetection:'${toolForAutomaticDetection}',
+
+          siftNinjaProps : {
+            accountName:'${siftNinjaProps.accountName}',
+            channelName:'${siftNinjaProps.channelName}',
+            apiKey:'${siftNinjaProps.apiKey}',
+            riskFactorThresholdVulgar:'${siftNinjaProps.riskFactorThresholdVulgar}',
+            riskFactorThresholdSexting:'${siftNinjaProps.riskFactorThresholdSexting}',
+            riskFactorThresholdRacism:'${siftNinjaProps.riskFactorThresholdRacism}',    
+          },
+
+          tisaneRiskFactorThresholdBigotry:'${tisaneRiskFactorThresholdBigotry}',
+          tisaneRiskFactorThresholdCyberBullying:'${tisaneRiskFactorThresholdCyberBullying}',
+          tisaneRiskFactorThresholdCriminalActivity:'${tisaneRiskFactorThresholdCriminalActivity}',
+          tisaneRiskFactorThresholdSexualAdvances:'${tisaneRiskFactorThresholdSexualAdvances}',
+          tisaneRiskFactorThresholdProfanity:'${tisaneRiskFactorThresholdProfanity}',
+          tisaneApiKey:'${tisaneApiKey}',
+          tisaneLanguage:'${tisaneLanguage}'
+        },
+      };
+    }
+  `;
+  debugger;
+  return code;
 }

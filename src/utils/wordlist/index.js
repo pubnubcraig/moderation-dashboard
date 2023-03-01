@@ -102,7 +102,7 @@ function wordListMaskWords({ regex, wordListCharacterToMaskWith, type }) {
      }`;
   }
 
-  // using image modertaion
+  // using image moderation
   return `return new Promise((resolve, reject) => {
     const badWords = new RegExp(${regex}, "g");
     if (
@@ -151,7 +151,7 @@ function wordListMaskWordsAndReroute({ regex, wordListCharacterToMaskWith, type 
    }`;
   }
 
-  // using image modertaion
+  // using image moderation
   return `return new Promise((resolve, reject) => {
     const badWords = new RegExp(${regex}, "g");
     if (
@@ -183,7 +183,7 @@ function wordListBlockMessage({ regex, type }) {
   }`;
   }
 
-  // using image modertaion
+  // using image moderation
   return `return new Promise((resolve, reject) => {
     const badWords = new RegExp(${regex}, "g");
     if (
@@ -229,7 +229,7 @@ function wordListBlockMessageAndReroute({ regex, type }) {
   }`;
   }
 
-  // using image modertaion
+  // using image moderation
   return `return new Promise((resolve, reject) => {
     const badWords = new RegExp(${regex}, "g");
     if (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Box, Typography } from "@material-ui/core";
-import { useStyles } from "../../style/textModeration.js";
+import { useStyles } from "../../../style/textModeration.js";
 
 const FilterCard = ({ state }) => {
   const classes = useStyles();

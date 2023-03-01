@@ -13,11 +13,11 @@ import {
   FormControl,
   MenuItem,
 } from "@material-ui/core";
-import { useStyles } from "../../../style/imageModeration";
-import Slider from "../../core/SliderComponent";
-import { LightTooltip } from "../../../style/tooltip";
+import { useStyles } from "../../../../style/imageModeration";
+import Slider from "../../../core/SliderComponent";
+import { LightTooltip } from "../../../../style/tooltip";
 import { handleChange } from "./ImageModerationHandler";
-import { constantBoolean } from "../../../utils/helpers";
+import { constantBoolean } from "../../../../utils/helpers";
 
 const TooltipText = (
   <>

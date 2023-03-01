@@ -17,11 +17,12 @@ export default function profanityFunctionForImage(data) {
     applyToAllChannelIds,
     textPnFnStatusdata,
   } = data;
+
   let regexForBanned = `"\\b(banned)\\b"`.replace(/\\/g, "\\\\");
 
   const checkForTextModeration = () => {
     if (!constantBoolean(textPnFnStatusdata.textModerationToggle)) {
-      return `console.log("skipping text moderation it is toggled off");
+      return `console.log("skipping text moderation - it is toggled off");
       return true;`;
     }
     if (constantBoolean(textPnFnStatusdata.wordListProfanity)) {
@@ -31,7 +32,7 @@ export default function profanityFunctionForImage(data) {
       // update for automatic
       return FilterConditionForAutomatic(textPnFnStatusdata, "image");
     }
-    return `console.log("skipping text moderation it has never been enabled");
+    return `console.log("skipping text moderation - it has never been enabled");
     return true;`;
   };
   /* -------
@@ -47,6 +48,7 @@ export default function profanityFunctionForImage(data) {
   const imageModeration = (imageTypeFunction = "block") => {
     let imageFunction = ` imageBannedFlag = true; `;
     const textModerationPromise = checkForTextModeration();
+
     if (imageTypeFunction === "reroute") {
       imageFunction = ` imageBannedReouteFlag = true;`;
     }
@@ -83,7 +85,8 @@ export default function profanityFunctionForImage(data) {
       const textmoderation = () => {
         if (message && message.text) {
           ${textModerationPromise}
-        } else {
+        } 
+        else {
           console.log("skipping text moderation, either the message or the text field is missing");
           return true;
         }
@@ -118,7 +121,8 @@ export default function profanityFunctionForImage(data) {
                   return reject(e);
                 });
             });
-        } else {
+        } 
+        else {
             console.log("image moderation skipping API call because there is no file in the message!");
             return true;
         }
@@ -249,17 +253,20 @@ export default function profanityFunctionForImage(data) {
     }
     return imageModeration(imageTypeFunction);
   };
-  return `function runProfanity(request){
-            ${filterConditions()}
-        return {
-          imageModerationToggle: '${imageModerationToggle}',
-          toolForImageModeration: '${toolForImageModeration}',
-          sightengineAPIUser: '${sightengineAPIUser}',
-          sightengineAPIKey: '${sightengineAPIKey}',
-          sightengineWorkflowId: '${sightengineWorkflowId}',
-          sightengineRiskFactorThreshold: '${sightengineRiskFactorThreshold}',
-          reRouteMessages: '${reRouteMessages}',
-          applyToAllChannelIds: '${applyToAllChannelIds}'
-        };
-    }`;
+
+  return `
+    function runProfanity(request){
+      ${filterConditions()}
+      return {
+        imageModerationToggle: '${imageModerationToggle}',
+        toolForImageModeration: '${toolForImageModeration}',
+        sightengineAPIUser: '${sightengineAPIUser}',
+        sightengineAPIKey: '${sightengineAPIKey}',
+        sightengineWorkflowId: '${sightengineWorkflowId}',
+        sightengineRiskFactorThreshold: '${sightengineRiskFactorThreshold}',
+        reRouteMessages: '${reRouteMessages}',
+        applyToAllChannelIds: '${applyToAllChannelIds}'
+      };
+    }
+  `;
 }

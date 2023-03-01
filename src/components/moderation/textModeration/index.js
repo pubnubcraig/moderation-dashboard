@@ -6,8 +6,9 @@ import ModerationMethods from "./ModerationMethods";
 import SwitchButton from "../../core/SwitchButton";
 import FilterCard from "./FilterCard";
 import profanityFunction from "../../../utils/profanityFunction";
-
 import { getCookie } from "../../../services/localStorage";
+import { siftNinjaProps } from "./automaticModeration/siftNinjaService/ServiceProperties";
+
 import {
   fetchWords,
   constantBoolean,
@@ -17,6 +18,7 @@ import {
   getProfanityWordsByLanguage,
   pnFunctionFilterStatus,
 } from "../../../utils/helpers";
+
 import {
   fetchPubNubFunction,
   createPubNubFunction,
@@ -30,6 +32,7 @@ import { handleImageModerationSave } from "../../../utils/imageModeration";
 
 const TextModeration = () => {
   const classes = useStyles();
+
   const [profanityList, setProfanityList] = useState({
     English: "",
     Hindi: "",
@@ -37,6 +40,7 @@ const TextModeration = () => {
     Portugese: "",
     Spanish: "",
   });
+
   const [state, setState] = useState({
     wordList: {
       wordListChannel: "*",
@@ -49,15 +53,30 @@ const TextModeration = () => {
       wordsListChannelError: false,
       wordListCharacterToMaskWith: "*",
     },
+
     automaticDetection: {
       applyToAllChannelIdsAutomatic: true,
       toolForAutomaticDetection: "tisane",
-      siftNinjaRiskFactorThresholdVulgar: 0,
-      siftNinjaRiskFactorThresholdSexting: 0,
-      siftNinjaRiskFactorThresholdRacism: 0,
-      siftNinjaAccountName: "",
-      siftNinjaChannelName: "",
-      siftNinjaApiKey: "",
+
+      // old format
+      // siftNinjaAccountName: "",
+      // siftNinjaChannelName: "",
+      // siftNinjaApiKey: "",
+      // siftNinjaRiskFactorThresholdVulgar: 0,
+      // siftNinjaRiskFactorThresholdSexting: 0,
+      // siftNinjaRiskFactorThresholdRacism: 0,
+      // new format
+      siftNinjaProps,
+      // looks like
+      // siftNinja: {
+      //   accountName: 'qq',
+      //   channelName: 'ww',
+      //   apiKey: 'ee',
+      //   riskFactorThresholdVulgar: '0.25',
+      //   riskFactorThresholdSexting: '0.5',
+      //   riskFactorThresholdRacism: '0.75'
+      // },
+
       tisaneRiskFactorThresholdBigotry: 0,
       tisaneRiskFactorThresholdCyberBullying: 0,
       tisaneRiskFactorThresholdCriminalActivity: 0,
@@ -65,6 +84,7 @@ const TextModeration = () => {
       tisaneRiskFactorThresholdProfanity: 0,
       tisaneApiKey: "",
       tisaneLanguage: "Autodetect",
+
       automaticDetectionChannel: "*",
       automaticChannelError: false,
       automaticMaskCharError: false,
@@ -72,6 +92,7 @@ const TextModeration = () => {
       automaticDetectionModType: "mask-message",
       automaticDetectionCharacterToMaskWith: "*",
     },
+
     textModerationToggle: false,
     wordListProfanity: false,
     automaticProfanity: false,
@@ -86,6 +107,7 @@ const TextModeration = () => {
 
   const checkForWordListProfanity = constantBoolean(state.wordListProfanity);
   const checkForTextModerationToogle = constantBoolean(state.textModerationToggle);
+
   const badWordsByLanguage = getProfanityWordsByLanguage(
     profanityList,
     state.wordList.wordListLanguage
@@ -266,6 +288,7 @@ const TextModeration = () => {
     (async () => {
       if (selectedApp) {
         try {
+          // attempt to retreive PN Function from the PN key set
           const fetchFunctionsResponse = await fetchPubNubFunction(
             selectedApp.id,
             headerToken,
@@ -273,13 +296,17 @@ const TextModeration = () => {
           );
 
           if (filterFunction(fetchFunctionsResponse, selectedApp).length) {
+            // the PN Function module was found
             const eventHandlers = filterFunction(fetchFunctionsResponse, selectedApp)[0]
               .event_handlers;
+
             const eventHandler = filterEventHandler(
               eventHandlers,
               filterFunction(fetchFunctionsResponse, selectedApp)
             );
+
             if (eventHandler.length > 0) {
+              // the PN Function module has the event handler
               const data = pnFunctionFilterStatus(eventHandler[0].code);
 
               const { wordListProfanity, automaticProfanity, textModerationToggle } = data;
@@ -302,12 +329,15 @@ const TextModeration = () => {
                 applyToAllChannelIdsAutomatic,
                 automaticDetectionCharacterToMaskWith,
                 toolForAutomaticDetection,
-                siftNinjaRiskFactorThresholdVulgar,
-                siftNinjaRiskFactorThresholdSexting,
-                siftNinjaRiskFactorThresholdRacism,
-                siftNinjaAccountName,
-                siftNinjaChannelName,
-                siftNinjaApiKey,
+
+                // siftNinjaRiskFactorThresholdVulgar,
+                // siftNinjaRiskFactorThresholdSexting,
+                // siftNinjaRiskFactorThresholdRacism,
+                // siftNinjaAccountName,
+                // siftNinjaChannelName,
+                // siftNinjaApiKey,
+                siftNinjaProps,
+
                 tisaneRiskFactorThresholdBigotry,
                 tisaneRiskFactorThresholdCyberBullying,
                 tisaneRiskFactorThresholdCriminalActivity,
@@ -334,12 +364,15 @@ const TextModeration = () => {
                   applyToAllChannelIdsAutomatic,
                   automaticDetectionCharacterToMaskWith,
                   toolForAutomaticDetection,
-                  siftNinjaRiskFactorThresholdVulgar,
-                  siftNinjaRiskFactorThresholdSexting,
-                  siftNinjaRiskFactorThresholdRacism,
-                  siftNinjaAccountName,
-                  siftNinjaChannelName,
-                  siftNinjaApiKey,
+
+                  // siftNinjaRiskFactorThresholdVulgar,
+                  // siftNinjaRiskFactorThresholdSexting,
+                  // siftNinjaRiskFactorThresholdRacism,
+                  // siftNinjaAccountName,
+                  // siftNinjaChannelName,
+                  // siftNinjaApiKey,
+                  siftNinjaProps,
+
                   tisaneRiskFactorThresholdBigotry,
                   tisaneRiskFactorThresholdCyberBullying,
                   tisaneRiskFactorThresholdCriminalActivity,
@@ -391,7 +424,7 @@ const TextModeration = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function CreateEventHandler(app, block_id, key_id, token) {
+  async function SaveEventHandler(app, eventHandler, block_id, key_id, token) {
     const {
       wordListChannel,
       applyToAllChannelIdsWordlist,
@@ -407,12 +440,15 @@ const TextModeration = () => {
       automaticDetectionReRouteMessages,
       automaticDetectionCharacterToMaskWith,
       toolForAutomaticDetection,
-      siftNinjaRiskFactorThresholdVulgar,
-      siftNinjaRiskFactorThresholdSexting,
-      siftNinjaRiskFactorThresholdRacism,
-      siftNinjaAccountName,
-      siftNinjaChannelName,
-      siftNinjaApiKey,
+
+      // siftNinjaRiskFactorThresholdVulgar,
+      // siftNinjaRiskFactorThresholdSexting,
+      // siftNinjaRiskFactorThresholdRacism,
+      // siftNinjaAccountName,
+      // siftNinjaChannelName,
+      // siftNinjaApiKey,
+      siftNinjaProps,
+
       tisaneRiskFactorThresholdBigotry,
       tisaneRiskFactorThresholdCyberBullying,
       tisaneRiskFactorThresholdCriminalActivity,
@@ -428,7 +464,9 @@ const TextModeration = () => {
       type: "js",
       key_id: key_id,
       block_id: block_id,
+      id: eventHandler ? eventHandler[0].id : null,
       channels: checkForWordListProfanity ? wordListChannel : automaticDetectionChannel,
+
       code: `${profanityFunction({
         wordListProfanity,
         automaticProfanity,
@@ -443,12 +481,15 @@ const TextModeration = () => {
         automaticDetectionReRouteMessages,
         automaticDetectionCharacterToMaskWith,
         toolForAutomaticDetection,
-        siftNinjaRiskFactorThresholdVulgar,
-        siftNinjaRiskFactorThresholdSexting,
-        siftNinjaRiskFactorThresholdRacism,
-        siftNinjaAccountName,
-        siftNinjaChannelName,
-        siftNinjaApiKey,
+
+        // siftNinjaRiskFactorThresholdVulgar,
+        // siftNinjaRiskFactorThresholdSexting,
+        // siftNinjaRiskFactorThresholdRacism,
+        // siftNinjaAccountName,
+        // siftNinjaChannelName,
+        // siftNinjaApiKey,
+        siftNinjaProps,
+
         tisaneRiskFactorThresholdBigotry,
         tisaneRiskFactorThresholdCyberBullying,
         tisaneRiskFactorThresholdCriminalActivity,
@@ -457,21 +498,53 @@ const TextModeration = () => {
         tisaneApiKey,
         tisaneLanguage,
       })}`,
+
       event: "js-before-publish",
       log_level: "debug",
       name: `BLOCK-${block_id}`,
       output: "output-0.5823105682419438",
     };
+
     try {
-      await createPubNubEventHandler(config, token);
-      if (checkForTextModerationToogle) {
+      if (eventHandler) {
+        // update pn function event handler
+        await updatePubNubEventHandler(config, token);
+
+        if (!checkForTextModerationToogle) {
+          await stopPubNubFunction({ key_id: key_id, block_id: block_id }, token);
+
+          await handleImageModerationSave(app, token, {
+            state,
+            setState,
+            uiPagecall: "textModeration",
+          });
+
+          return setState({
+            ...state,
+            errorStatus: false,
+            saveLoading: false,
+            errorMsg: "",
+            successMsg: "Successfully updated",
+            successStatus: true,
+          });
+        }
+
         await startPubNubFunction({ key_id: key_id, block_id: block_id }, token);
+      } else {
+        // create pn function event handler
+        await createPubNubEventHandler(config, token);
+
+        if (checkForTextModerationToogle) {
+          await startPubNubFunction({ key_id: key_id, block_id: block_id }, token);
+        }
       }
+
       await handleImageModerationSave(app, token, {
         state,
         setState,
         uiPagecall: "textModeration",
       });
+
       setState({
         ...state,
         errorStatus: false,
@@ -486,123 +559,6 @@ const TextModeration = () => {
         errorStatus: true,
         saveLoading: false,
         errorMsg: error.message,
-        successMsg: "",
-        successStatus: false,
-      });
-    }
-  }
-
-  async function UpdateEventHandler(app, eventHandler, block_id, key_id, token) {
-    const {
-      wordListChannel,
-      applyToAllChannelIdsWordlist,
-      wordListCharacterToMaskWith,
-      wordListModType,
-      wordListReRouteMessages,
-    } = state.wordList;
-
-    const {
-      automaticDetectionModType,
-      automaticDetectionChannel,
-      applyToAllChannelIdsAutomatic,
-      automaticDetectionReRouteMessages,
-      automaticDetectionCharacterToMaskWith,
-      toolForAutomaticDetection,
-      siftNinjaRiskFactorThresholdVulgar,
-      siftNinjaRiskFactorThresholdSexting,
-      siftNinjaRiskFactorThresholdRacism,
-      siftNinjaAccountName,
-      siftNinjaChannelName,
-      siftNinjaApiKey,
-      tisaneRiskFactorThresholdBigotry,
-      tisaneRiskFactorThresholdCyberBullying,
-      tisaneRiskFactorThresholdCriminalActivity,
-      tisaneRiskFactorThresholdSexualAdvances,
-      tisaneRiskFactorThresholdProfanity,
-      tisaneApiKey,
-      tisaneLanguage,
-    } = state.automaticDetection;
-
-    const { wordListProfanity, automaticProfanity, textModerationToggle } = state;
-
-    const updatedConfig = {
-      type: "js",
-      key_id: key_id,
-      block_id: block_id,
-      id: eventHandler[0].id,
-      channels: checkForWordListProfanity ? wordListChannel : automaticDetectionChannel,
-      code: `${profanityFunction({
-        wordListProfanity,
-        applyToAllChannelIdsAutomatic,
-        applyToAllChannelIdsWordlist,
-        automaticProfanity,
-        textModerationToggle,
-        wordListCharacterToMaskWith,
-        profanityList,
-        wordListModType,
-        wordListReRouteMessages,
-        automaticDetectionModType,
-        automaticDetectionReRouteMessages,
-        automaticDetectionCharacterToMaskWith,
-        toolForAutomaticDetection,
-        siftNinjaRiskFactorThresholdVulgar,
-        siftNinjaRiskFactorThresholdSexting,
-        siftNinjaRiskFactorThresholdRacism,
-        siftNinjaAccountName,
-        siftNinjaChannelName,
-        siftNinjaApiKey,
-        tisaneRiskFactorThresholdBigotry,
-        tisaneRiskFactorThresholdCyberBullying,
-        tisaneRiskFactorThresholdCriminalActivity,
-        tisaneRiskFactorThresholdSexualAdvances,
-        tisaneRiskFactorThresholdProfanity,
-        tisaneApiKey,
-        tisaneLanguage,
-      })}`,
-      event: "js-before-publish",
-      log_level: "debug",
-      name: `BLOCK-${block_id}`,
-      output: "output-0.5823105682419438",
-    };
-
-    try {
-      await updatePubNubEventHandler(updatedConfig, token);
-      if (!checkForTextModerationToogle) {
-        await stopPubNubFunction({ key_id: key_id, block_id: block_id }, token);
-        await handleImageModerationSave(app, token, {
-          state,
-          setState,
-          uiPagecall: "textModeration",
-        });
-        return setState({
-          ...state,
-          errorStatus: false,
-          saveLoading: false,
-          errorMsg: "",
-          successMsg: "Successfully updated",
-          successStatus: true,
-        });
-      }
-      await startPubNubFunction({ key_id: key_id, block_id: block_id }, token);
-      await handleImageModerationSave(app, token, {
-        state,
-        setState,
-        uiPagecall: "textModeration",
-      });
-      setState({
-        ...state,
-        errorStatus: false,
-        saveLoading: false,
-        errorMsg: "",
-        successMsg: "Successfully updated",
-        successStatus: true,
-      });
-    } catch (err) {
-      setState({
-        ...state,
-        errorStatus: true,
-        saveLoading: false,
-        errorMsg: err.message,
         successMsg: "",
         successStatus: false,
       });
@@ -637,11 +593,14 @@ const TextModeration = () => {
             eventHandlerList,
             filterFunction(functionResponse, app)
           );
-          if (eventHandler.length === 0) {
-            await CreateEventHandler(app, blockId, key_id, token);
-          } else {
-            await UpdateEventHandler(app, eventHandler, blockId, key_id, token);
-          }
+
+          await SaveEventHandler(app, eventHandler, blockId, key_id, token);
+          // if (eventHandler.length === 0) {
+          //   await CreateEventHandler(app, blockId, key_id, token);
+          // }
+          // else {
+          //   await UpdateEventHandler(app, eventHandler, blockId, key_id, token);
+          // }
         } else {
           const config = {
             key_id: app.id,
@@ -650,8 +609,10 @@ const TextModeration = () => {
           };
           await createPubNubFunction(config, token);
           const fetchFunctions = await fetchPubNubFunction(app.id, token);
-          const block_id = filterFunction(fetchFunctions, app)[0].id;
-          await CreateEventHandler(app, block_id, key_id, token);
+          const blockId = filterFunction(fetchFunctions, app)[0].id;
+
+          await SaveEventHandler(app, null, blockId, key_id, token);
+          // await CreateEventHandler(app, blockId, key_id, token);
           setState((previous) => ({
             ...previous,
             initialLoading: false,

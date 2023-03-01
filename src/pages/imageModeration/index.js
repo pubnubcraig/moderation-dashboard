@@ -1,6 +1,6 @@
 import React from "react";
 import DashboardLayout from "../../layouts/Dashboard";
-import ImageModeration from "../../components/imageModeration/index";
+import ImageModeration from "../../components/moderation/imageModeration/index";
 
 const ImageModerationPage = () => {
   return (

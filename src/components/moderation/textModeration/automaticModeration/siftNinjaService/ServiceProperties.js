@@ -5,14 +5,23 @@ import Slider from "../../../../core/SliderComponent";
 import { LightTooltip } from "../../../../../style/tooltip";
 import { handleChange } from "./ServiceHandler";
 
+export const siftNinjaProps = {
+  siftNinjaAccountName: "",
+  siftNinjaChannelName: "",
+  siftNinjaApiKey: "",
+  siftNinjaRiskFactorThresholdVulgar: 0,
+  siftNinjaRiskFactorThresholdSexting: 0,
+  siftNinjaRiskFactorThresholdRacism: 0,
+};
+
 const ServiceProperties = ({ state, setState }) => {
   const {
-    siftNinjaRiskFactorThresholdVulgar,
-    siftNinjaRiskFactorThresholdSexting,
-    siftNinjaRiskFactorThresholdRacism,
-    siftNinjaAccountName,
-    siftNinjaChannelName,
-    siftNinjaApiKey,
+    riskFactorThresholdVulgar,
+    riskFactorThresholdSexting,
+    riskFactorThresholdRacism,
+    accountName,
+    channelName,
+    apiKey,
   } = state.automaticDetection;
 
   const classes = useStyles();
@@ -42,13 +51,13 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Box pt={1} mb={2}>
               <TextField
-                id="siftAccountName"
+                id="accountName"
                 variant="outlined"
                 size="small"
                 placeholder="SiftNinja Account Name"
                 fullWidth
-                name="siftNinjaAccountName"
-                value={siftNinjaAccountName}
+                name="accountName"
+                value={accountName}
                 onChange={handleChange({ setState, state })}
               />
             </Box>
@@ -57,7 +66,7 @@ const ServiceProperties = ({ state, setState }) => {
           <Box pt={1}>
             <Grid container>
               <Grid item>
-                <label testId="siftChannelName" className={classes.label}>
+                <label testId="channelName" className={classes.label}>
                   SiftNinja Channel Name
                 </label>
               </Grid>
@@ -74,13 +83,13 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Box pt={1} mb={2}>
               <TextField
-                id="siftChannelName"
+                id="channelName"
                 variant="outlined"
                 size="small"
                 fullWidth
-                name="siftNinjaChannelName"
+                name="channelName"
                 placeholder="SiftNinja Channel Name"
-                value={siftNinjaChannelName}
+                value={channelName}
                 onChange={handleChange({ setState, state })}
               />
             </Box>
@@ -89,7 +98,7 @@ const ServiceProperties = ({ state, setState }) => {
           <Box pt={1}>
             <Grid container>
               <Grid item>
-                <label testid="siftApiKey" className={classes.label}>
+                <label testid="apiKey" className={classes.label}>
                   SiftNinja API Key
                 </label>
               </Grid>
@@ -106,13 +115,13 @@ const ServiceProperties = ({ state, setState }) => {
             </Grid>
             <Box pt={1} mb={2}>
               <TextField
-                id="siftApiKey"
+                id="apiKey"
                 variant="outlined"
                 size="small"
                 fullWidth
-                name="siftNinjaApiKey"
+                name="apiKey"
                 placeholder="SiftNinja API key"
-                value={siftNinjaApiKey}
+                value={apiKey}
                 onChange={handleChange({ setState, state })}
               />
               <Typography testid="connectivity" align="right" className={classes.testText}>
@@ -130,8 +139,8 @@ const ServiceProperties = ({ state, setState }) => {
                 <Box pt={1}>
                   <Slider
                     id="vulgarRiskFactor"
-                    name="siftNinjaRiskFactorThresholdVulgar"
-                    value={siftNinjaRiskFactorThresholdVulgar}
+                    name="riskFactorThresholdVulgar"
+                    value={riskFactorThresholdVulgar}
                     onChange={handleChange({
                       setState,
                       state,
@@ -148,9 +157,9 @@ const ServiceProperties = ({ state, setState }) => {
                 </label>
                 <Box pt={1}>
                   <Slider
-                    id="SextingRisk"
-                    name="siftNinjaRiskFactorThresholdSexting"
-                    value={siftNinjaRiskFactorThresholdSexting}
+                    id="sextingRisk"
+                    name="riskFactorThresholdSexting"
+                    value={riskFactorThresholdSexting}
                     onChange={handleChange({
                       setState,
                       state,
@@ -168,8 +177,8 @@ const ServiceProperties = ({ state, setState }) => {
                 <Box pt={1}>
                   <Slider
                     id="racismRisk"
-                    name="siftNinjaRiskFactorThresholdRacism"
-                    value={siftNinjaRiskFactorThresholdRacism}
+                    name="riskFactorThresholdRacism"
+                    value={riskFactorThresholdRacism}
                     onChange={handleChange({
                       setState,
                       state,
