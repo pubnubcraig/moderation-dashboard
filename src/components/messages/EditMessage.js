@@ -15,6 +15,11 @@ import SnackBar from "../core/SnackBar";
 const EditMessage = (props) => {
   const { pubnub, channel, message } = props;
   const [text, setText] = useState("");
+
+  /* - create/add new message feature
+    change the default from true to false because we need message text box
+    editable so that a new message can be entered at any time
+  */
   const [disabled, setDisabled] = useState(false);
   const [displayBox, setDisplayBox] = useState(false);
   const [actionToken, setActionToken] = useState("");
@@ -37,10 +42,13 @@ const EditMessage = (props) => {
     }
   }, [message]);
 
+  /* - create/add new message feature
+    added this function to determine if this is a create or edit message
+    and to call the appropriate function to handle that operation
+  */
   const createOrUpdateMessage = () => {
     // if actionToken then edit message, else create (send) new message
     actionToken === null || actionToken.length === 0 ? createMessage() : updateMessage();
-    // updateMessage();
   };
 
   const updateMessage = () => {
@@ -56,6 +64,11 @@ const EditMessage = (props) => {
         }
         const response = await addEditMessageAction(pubnub, channel, message.timetoken, text);
         setText("");
+
+        /* - create/add new message feature
+          we don't want the message text box to ever be disabled because we always
+          want to be able to enter a new message
+        */
         // setDisabled(true);
         setDisplayBox(false);
         props.updated(message.timetoken, message.actionToken, "updated", response);
@@ -69,12 +82,17 @@ const EditMessage = (props) => {
     })();
   };
 
+  /* - create/add new message feature
+    added this function to create a new message by publishing the 
+    entered message on the current channel
+  */
   async function createMessage() {
     setAlertMessage({
       ...alertMessage,
       success: { status: false, msg: "" },
       error: { status: false, msg: "" },
     });
+
     const response = await pubnub.publish({ channel, message: { text: text } });
     if (response) {
       setText("");
@@ -94,6 +112,10 @@ const EditMessage = (props) => {
 
   const closeEditing = () => {
     setDisplayBox(false);
+    /* - create/add new message feature
+      we don't want the message text box to ever be disabled because we always
+      want to be able to enter a new message
+    */
     // setDisabled(true);
     setText("");
     props.updated(message.timetoken, message.actionToken, "updated", "");
